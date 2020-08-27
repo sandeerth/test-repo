@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     
     
     }
-    acno="";
+    acno="1234";
     pwd="";
 
   constructor() { }

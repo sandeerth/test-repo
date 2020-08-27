@@ -7,13 +7,14 @@
         <div class="jumbotron">
     <form>
     <div class="form-group">
-      <label for="acno">Account No</label>
-      <input (change)="acnoChange($event)" class="form-control" id="acno" aria-describedby="emailHelp">
+      <!-- {{acno}} -->
+      <label for="acno">Account Number</label>
+      <input [(ngModel)]="acno" class="form-control" name="acno" id="acno" aria-describedby="emailHelp">
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="pwd">Password</label>
-      <input (change)="pwdChange($event)" type ="password"class="form-control" id="pwd">
+      <input type ="password" [(ngModel)]="pwd" name="pwd" class="form-control" id="pwd">
     </div>
     
     <button type="submit" class="btn btn-primary" (click)="login()">Submit</button>
