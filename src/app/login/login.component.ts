@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     acno="1234";
     pwd="";
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   acnoChange(event){
     this.acno=event.target.value;
@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
             let pwd=data[acno].password
             if (pwd==password){
                 alert("successfull");
-                window.location.href="home.html"
+                // window.location.href="home.html"
+                this.router.navigateByUrl("dashboard")
             }
             else{
                 alert("incorrect username or pass")
