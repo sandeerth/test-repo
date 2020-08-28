@@ -1,2 +1,38 @@
-<p>register works!</p>
-<a routerLink="">Login</a>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4"><h1>WELCOME TO STATEBANK</h1></div>
+    <div class="col-4"></div>
+  </div>
+    <div class="container">
+        <div class="jumbotron">
+    <form (ngSubmit)="register()">
+        <div class="form-group">
+            <!-- {{acno}} -->
+         
+            <label for="name">Name</label>
+            <input [(ngModel)]="name" class="form-control" name="name" id="acno" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted"></small>
+          </div>
+    <div class="form-group">
+      <!-- {{acno}} -->
+      <label for="acno">Account Number</label>
+      <input [(ngModel)]="acno" class="form-control" name="acno" id="acno" aria-describedby="emailHelp">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password</label>
+      <input type ="password" [(ngModel)]="pwd" name="pwd" class="form-control" id="pwd">
+    </div>
+    <div class="form-group">
+        <label for="pin">Pin</label>
+        <input type ="pin" [(ngModel)]="pin" name="pin" class="form-control" id="pin">
+      </div>
+    <button type="submit" class="btn btn-primary" >Submit</button><br><br>
+    <a routerLink="">Back to Login</a>
+  </form>
+
+
+
+</div>
+</div>
+

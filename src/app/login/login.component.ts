@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {DataService} from'../services/data.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     acno="1234";
     pwd="";
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+    private dataService: DataService) { }
 
   acnoChange(event){
     this.acno=event.target.value;
