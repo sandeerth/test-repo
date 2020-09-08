@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {DataService} from'../services/data.service';
+import { FormBuilder , Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,51 +18,70 @@ export class LoginComponent implements OnInit {
     
     
     }
-    acno="1234";
+    acno="";
     pwd="";
 
-  constructor(private router:Router,
-    private dataService: DataService) { }
+    loginform = this.fb.group({
+      acno:['',[ Validators.required]],
+    pwd:['',[ Validators.required]]
+     
+    })
 
-  acnoChange(event){
-    this.acno=event.target.value;
-  }
-  pwdChange(event){
-    this.pwd=event.target.value;
-  }
+    getError(field){
+      return (this.loginform.get(field).touched||this.loginform.get(field).dirty)&&this.loginform.get(field).errors; 
+       
+      }
+  constructor(private router:Router,
+    private dataService: DataService,
+    private fb:FormBuilder) { }
+
 
   ngOnInit(): void {
   }
+
+ 
   login(){
     
 
-    
-        var acno=parseInt(this.acno);
-        var password=this.pwd;
-        try{
-            if(isNaN(acno)) throw "not a valid no"
-            if (acno.toString().length<2) throw"accnt no mus atleast 4 charectors"
-        }
-        catch(err){
-            alert(err)
-        }
-        alert(acno+","+password)
-        let data=this.accountDetails
+    if(this.loginform.valid){
+      const result = this.dataService.login(this.loginform.value.acno,this.loginform.value.pwd);
+      if (result){
+        alert("login successfull")
+        this.router.navigateByUrl("dashboard")
+      }else{
+        alert("invcalid credentials")
+      }
+      }
+      else{
+        alert("invalid form")
+      }
+    }
+  //       var acno=parseInt(this.loginform.value.acno);
+  //       var password=this.loginform.value.pwd;
+  //       try{
+  //           if(isNaN(acno)) throw "not a valid no"
+  //           if (acno.toString().length<2) throw"accnt no mus atleast 4 charectors"
+  //       }
+  //       catch(err){
+  //           alert(err)
+  //       }
+  //       alert(acno+","+password)
+  //       let data=this.dataService.accountDetails
 
-        if(acno in data){
-            let pwd=data[acno].password
-            if (pwd==password){
-                alert("successfull");
-                // window.location.href="home.html"
-                this.router.navigateByUrl("dashboard")
-            }
-            else{
-                alert("incorrect username or pass")
-            }
-        }
-        else{
-            alert("user doesnot exist")
-        }
+  //       if(acno in data){
+  //           let pwd=data[acno].password
+  //           if (pwd==password){
+  //               alert("successfull");
+  //               // window.location.href="home.html"
+  //               this.router.navigateByUrl("dashboard")
+  //           }
+  //           else{
+  //               alert("incorrect username or pass")
+  //           }
+  //       }
+  //       else{
+  //           alert("user doesnot exist")
+  //       }
+  // }
   }
 
-}

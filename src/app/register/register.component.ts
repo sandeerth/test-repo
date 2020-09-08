@@ -29,8 +29,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  getError(name){
-    return this.registerForm.get(name).errors
+  getError(field){
+    return (this.registerForm.get(field).touched||this.registerForm.get(field).dirty)&&this.registerForm.get(field).errors;
      
     }
   

@@ -31,4 +31,17 @@ export class DataService {
     alert("successfully created account , please login")
     return false;
   }
+login(acno1,password){
+  alert(acno1)
+  var acno=parseInt(acno1);
+  var data=this.accountDetails;
+  if (acno in data){
+    var pwd = data[acno].password
+    if (pwd==password){
+      return true;
+    }
+  }
+
+}
+
 }

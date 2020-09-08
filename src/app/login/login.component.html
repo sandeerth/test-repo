@@ -5,19 +5,21 @@
   </div>
     <div class="container">
         <div class="jumbotron">
-    <form>
+    <form [formGroup]="loginform" (ngSubmit)="login()" >
     <div class="form-group">
-      <!-- {{acno}} -->
+      
       <label for="acno">Account Number</label>
-      <input [(ngModel)]="acno" class="form-control" name="acno" id="acno" aria-describedby="emailHelp">
+      <input formControlName="acno" class="form-control" name="acno" id="acno" aria-describedby="emailHelp">
+      <div *ngIf="getError('acno')" class="error">Name is invalid</div>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="pwd">Password</label>
-      <input type ="password" [(ngModel)]="pwd" name="pwd" class="form-control" id="pwd">
+      <input type ="password" formControlName="pwd" name="pwd" class="form-control" id="pwd">
+      <div *ngIf="getError('pwd')" class="error">Password is invalid</div>
     </div>
     
-    <button type="submit" class="btn btn-primary" (click)="login()">Submit</button><br><br>
+    <button type="submit" class="btn btn-primary" >Submit</button><br><br>
     <a routerLink="register">Register</a>
   </form>
 
