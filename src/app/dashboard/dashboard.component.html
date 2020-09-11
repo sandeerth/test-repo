@@ -1,46 +1,61 @@
 <div class="container">
-    <div class="row">
-      
-        <div class ="col-6">
-            <div class="p-3 mb-2 bg-info text-white">
-            <h1>Deposit</h1>
-    <table>
-    <tr><td>accno</td>
-        <td><input type="text" id="acno"></td></tr>
-      <tr> <td>pin</td>
-        <td><input type="text" id="pin"></td></tr> 
-        <tr>   <td>amount</td>
-        <td><input type="text"id="amnt"></td></tr> 
-        <tr>   <td>proceed</td>
-        <td><input type="submit" onclick="bank.deposit()"></td></tr>
+    <div class="jumbotron">
+        <h1>Welcome {{dataService.currentUser.name}} </h1>
+        <a routerLink="/transaction-history">View Transactions</a>
+        <div class="row">
+            <div class="col" >
+                <h2>Cash Deposit</h2>
+
+                <form [formGroup]="depositForm" (ngSubmit)="deposit()">
+                    <table>
+                        <tr>
+                            <td>Account Number</td>
+                            <td><input formControlName="acno" type="text" name="acno" id="acno"></td>
+                        </tr>
+                        <tr>
+                            <td>Pin</td>
+                            <td><input formControlName="pin" type="text" name="pin" id="pin"></td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td><input formControlName="amt" type="text" name="amt" id="amt"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <button type="submit" >Deposit</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <div class="col" >
+                <h2>Cash Withdrawal</h2>
+                <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+                <table>
+                    <tr>
+                        <td>Account No:</td>
+                        <td><input formControlName="acno" type="text" name="wacno" id="wacno"></td>
+                    </tr>
+                    <tr>
+                        <td>Pin</td>
+                        <td><input formControlName="pin" type="text" name="pin" id="wpin"></td>
+                    </tr>
+                    <tr>
+                        <td>Amount</td>
+                        <td><input formControlName="amt" type="text" name="amt" id="wamt"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"> <button type="submit" >Withdraw</button></td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+<div>
     
-    
-    
-    </table></div></div>
-    
-      
-        <div class ="col-6">
-            <div class="p-3 mb-2 bg-info text-white">
-            <h1>Withdraw</h1>
-    <table width="50px">
-    <tr><td>accno</td>
-        <td><input type="text" id="acno1"></td></tr>
-      <tr> <td>pin</td>
-        <td><input type="text" id="pin1"></td></tr> 
-        <tr>   <td>amount</td>
-        <td><input type="text"id="amnt1"></td></tr> 
-        <tr>   <td>proceed</td>
-        <td><input type="submit" onclick="bank.withdraw()"></td></tr>
-    
-    
-    
-    </table>
-    </div></div>
-        
-        
-    
-    
-    
-    
-        </div></div>
-    
+</div>

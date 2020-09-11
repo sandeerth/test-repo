@@ -1,24 +1,54 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {accountDetails={
+export class DashboardComponent implements OnInit {
 
-  1001:{name:"user1",accno:1001,pin:1234,password:"userone",balance:3000},
-  1002:{name:"user2",accno:1002,pin:1235,password:"userone",balance:3000},
-  1003:{name:"user3",accno:1003,pin:1236,password:"userone",balance:3000},
-  1004:{name:"user4",accno:1004,pin:1237,password:"userone",balance:3000},
-  1005:{name:"user5",accno:1005,pin:1238,password:"userone",balance:3000},
+  depositForm = this.fb.group({
+    acno:[''],
+    pin:[''],
+    amt:[''],
+  });
 
+  withdrawForm = this.fb.group({
+    acno:[''],
+    pin:[''],
+    amt:[''],
+  });
 
-}
-
-  constructor() { }
+  constructor(public dataService:DataService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
+  deposit(){
+    const result = this.dataService.deposit(this.depositForm.value.acno,
+      this.depositForm.value.pin,
+      this.depositForm.value.amt);
+    if(result.status==true){
+      alert(result.message);
+      alert(result.balance);
+    }else{
+      alert(result.message);
+    }
+  }
+
+  withdraw(){
+    const result = this.dataService.withdraw(this.withdrawForm.value.acno,
+      this.withdrawForm.value.pin,
+      this.withdrawForm.value.amt);
+    if(result.status==true){
+      alert(result.message);
+      alert(result.balance);
+    }else{
+      alert(result.message);
+      alert(result.balance);
+    }
+  }
+  
 }
