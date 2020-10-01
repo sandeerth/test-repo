@@ -3,17 +3,22 @@
         <h1>Transaction History </h1>
         <div class="row">
             <div class="col">
+                <app-delete-confirmation [id]="id" (onCancel)="onCancel($event)" (onDelete)="deleteTransaction($event)"></app-delete-confirmation>
+
                 <table>
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Amount</th>
                             <th>Type</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let transaction of transactions">
+                            <td>{{transaction._id}}</td>
                             <td>{{transaction.amount}}</td>
-                            <td>{{transaction.type}}</td>
+                            <td>{{transaction.typeOfTransaction}}</td>
+                            <td ><button class="btn btn-primary" (click)="showConfirmationDialog(transaction._id)">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>

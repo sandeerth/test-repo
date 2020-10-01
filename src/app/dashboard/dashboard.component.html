@@ -1,10 +1,8 @@
 <div class="container">
     <div class="jumbotron">
-     
-        <h1>Welcome {{dataService.currentUser.name}} </h1>
+        <h1>Welcome {{name}} </h1>
         <a routerLink="/transaction-history">View Transactions</a>
         <div class="row">
-           
             <div class="col" >
                 <h2>Cash Deposit</h2>
 
@@ -23,7 +21,7 @@
                             <td><input formControlName="amt" type="text" name="amt" id="amt"></td>
                         </tr>
                         <tr>
-                            <td colspan="2"> <button type="submit"class="btn btn-primary" >Deposit</button></td>
+                            <td colspan="2"> <button type="submit" >Deposit</button></td>
                         </tr>
                     </table>
                 </form>
@@ -46,7 +44,7 @@
                         <td><input formControlName="amt" type="text" name="amt" id="wamt"></td>
                     </tr>
                     <tr>
-                        <td colspan="2"> <button type="submit" class="btn btn-primary" >Withdraw</button></td>
+                        <td colspan="2"> <button type="submit" >Withdraw</button></td>
                     </tr>
                 </table>
                 </form>

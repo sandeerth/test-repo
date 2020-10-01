@@ -20,35 +20,36 @@ export class DashboardComponent implements OnInit {
     pin:[''],
     amt:[''],
   });
-
-  constructor(public dataService:DataService, private fb: FormBuilder) { }
+  name="";
+  constructor(public dataService:DataService, private fb: FormBuilder) { 
+    this.name = localStorage.getItem("name")
+  }
 
   ngOnInit(): void {
   }
 
   deposit(){
-    const result = this.dataService.deposit(this.depositForm.value.acno,
+    this.dataService.deposit(
+      this.depositForm.value.acno,
       this.depositForm.value.pin,
-      this.depositForm.value.amt);
-    if(result.status==true){
+      this.depositForm.value.amt)
+    .subscribe((result:any)=>{
       alert(result.message);
       alert(result.balance);
-    }else{
-      alert(result.message);
-    }
+    },result => {
+      alert(result.error.message);
+    })
   }
 
   withdraw(){
-    const result = this.dataService.withdraw(this.withdrawForm.value.acno,
+    this.dataService.withdraw(this.withdrawForm.value.acno,
       this.withdrawForm.value.pin,
-      this.withdrawForm.value.amt);
-    if(result.status==true){
+      this.withdrawForm.value.amt)
+    .subscribe((result:any)=>{
       alert(result.message);
       alert(result.balance);
-    }else{
-      alert(result.message);
-      alert(result.balance);
-    }
+    },result => {
+      alert(result.error.message);
+    })
   }
-  
 }

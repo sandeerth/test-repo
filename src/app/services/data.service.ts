@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+const options = {
+  withCredentials: true
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +19,7 @@ export class DataService {
 
   currentUser;
 
-  constructor() {
+  constructor(private http:HttpClient) {
     this.getDetails();
   }
 
@@ -28,7 +32,11 @@ export class DataService {
   }
 
   getTransactions(){
-    return this.accountDetails[this.currentUser.acno].transactions;
+    return this.http.get("http://localhost:3000/transactions", options);
+  }
+  
+  deleteTransaction(id){
+    return this.http.delete("http://localhost:3000/transactions/"+id, options);
   }
 
   getDetails(){
@@ -41,11 +49,7 @@ export class DataService {
   }
 
   register(name,acno,pin,password){
-    if (acno in this.accountDetails){
-      alert("Account already exists. Please login");
-      return false;
-    }
-    this.accountDetails[acno]={
+    const data={
       name,
       acno,
       pin,
@@ -53,82 +57,34 @@ export class DataService {
       balance:0,
       transactions:[]
     }
-    this.saveDetails();
-    return true;
+    return this.http.post("http://localhost:3000/register", data);
   }
 
   login(acno1, password){
-    var acno=parseInt(acno1);
-    var data=this.accountDetails;
-    if (acno in data){
-      var pwd = data[acno].password
-      if (pwd==password){
-        this.currentUser = data[acno];
-        this.saveDetails();
-        return true;
-      }
+    var accno=parseInt(acno1);
+    const data = {
+      accno,
+      password
     }
+    return this.http.post("http://localhost:3000/login", data, options);
   }
 
 
   deposit(dpacno,dppin,dpamt){
-    var data=this.accountDetails;
-    if (dpacno in data){
-        var mpin = data[dpacno].pin
-        if (dppin==mpin){
-            data[dpacno].balance+= parseInt(dpamt);
-            data[dpacno].transactions.push({
-              amount:dpamt,
-              type:'Credit'
-            })
-            this.saveDetails();
-            return {
-              status:true,
-              message:'account has been credited', 
-              balance:data[dpacno].balance
-            }
-        }
-    }
-    else{
-      return {
-        status:false,
-        message:'Incorrect Account Details'
-      }
-    }        
-
+    const data = {
+      dpacno,
+      dppin,
+      dpamt
+    };
+    return this.http.post("http://localhost:3000/deposit", data, options);
   }
 
-  withdraw(wacno,wpin,wamt){
-    var data=this.accountDetails;
-    if (wacno in data){
-        var mpin = data[wacno].pin
-        if(data[wacno].balance<parseInt(wamt)){
-          return {
-            status:false,
-            message:'Insufficient balance', 
-            balance:data[wacno].balance
-          }
-        }
-        else if (wpin==mpin){
-            data[wacno].balance-= parseInt(wamt)
-            data[wacno].transactions.push({
-              amount:wamt,
-              type:'Debit'
-            })
-            this.saveDetails();
-            return {
-              status:true,
-              message:'account has been debited', 
-              balance:data[wacno].balance
-            }
-        }
-    }
-    else{
-      return {
-        status:false,
-        message:'Incorrect Account Details'
-      }
-    }
-  }    
-
+  withdraw(dpacno,dppin,dpamt){
+    const data = {
+      dpacno,
+      dppin,
+      dpamt
+    };
+    return this.http.post("http://localhost:3000/withdraw", data, options);
+  }
 }
